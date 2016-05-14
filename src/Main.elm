@@ -68,5 +68,9 @@ view model =
             [ text "Show Alert" ]
         , h1 [] [ text "Model" ]
         , p [] [ text (toString model) ]
-        , div [ class "alert alert-danger" ] [ text "Oh no! Dinosaurs!" ]
+        , div
+            [ class "alert alert-danger"
+            ]
+            [ text ""
+            ]
         ]
