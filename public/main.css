@@ -1,0 +1,13 @@
+.alert {
+  transition: 250ms;
+}
+
+.alert.in {
+  transform: translateY(40px) rotateZ(5deg);
+  opacity: 0;
+}
+
+.alert.out {
+  transform: translateY(40px) rotateZ(-5deg);
+  opacity: 0;
+}

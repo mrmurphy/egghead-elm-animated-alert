@@ -68,17 +68,17 @@ update msg model =
     case msg of
         BeginShow ->
             ( { model | beginShow = True, show = True }
-            , Task.perform (always NoOp) (always Show) (Process.sleep 1000)
+            , Task.perform (always NoOp) (always Show) (Process.sleep 250)
             )
 
         BeginHide ->
             ( { model | beginHide = True }
-            , Task.perform (always NoOp) (always Hide) (Process.sleep 1000)
+            , Task.perform (always NoOp) (always Hide) (Process.sleep 250)
             )
 
         Show ->
             ( { model | show = True, beginShow = False }
-            , Task.perform (always NoOp) (always BeginHide) (Process.sleep 1000)
+            , Task.perform (always NoOp) (always BeginHide) (Process.sleep 1500)
             )
 
         Hide ->
@@ -110,10 +110,8 @@ view model =
                 [ classList
                     [ ( "alert", True )
                     , ( "alert-danger", True )
-                    , ( "alert-danger", True )
-                    , ( "animated", True )
-                    , ( "fadeInDown", model.beginShow )
-                    , ( "fadeOutDown", model.beginHide )
+                    , ( "in", model.beginShow )
+                    , ( "out", model.beginHide )
                     ]
                 ]
                 [ text "Oh no! Dinosaurs!" ]
