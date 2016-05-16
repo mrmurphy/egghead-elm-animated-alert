@@ -3,9 +3,6 @@ module Main exposing (..)
 import Html exposing (..)
 import Html.App
 import Html.Attributes exposing (..)
-import Html.Events exposing (..)
-import Task
-import Process
 
 
 -- Subscriptions
@@ -24,10 +21,7 @@ main : Program Never
 main =
     Html.App.program
         { init =
-            ( { beginShow = False
-              , show = False
-              , beginHide = False
-              }
+            ( {}
             , Cmd.none
             )
         , update = update
@@ -41,10 +35,7 @@ main =
 
 
 type alias Model =
-    { beginShow : Bool
-    , show : Bool
-    , beginHide : Bool
-    }
+    {}
 
 
 
@@ -52,11 +43,7 @@ type alias Model =
 
 
 type Msg
-    = BeginShow
-    | BeginHide
-    | Hide
-    | Show
-    | NoOp
+    = NoOp
 
 
 
@@ -66,26 +53,6 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        BeginShow ->
-            ( { model | beginShow = True, show = True }
-            , Task.perform (always NoOp) (always Show) (Process.sleep 250)
-            )
-
-        BeginHide ->
-            ( { model | beginHide = True }
-            , Task.perform (always NoOp) (always Hide) (Process.sleep 250)
-            )
-
-        Show ->
-            ( { model | show = True, beginShow = False }
-            , Task.perform (always NoOp) (always BeginHide) (Process.sleep 1500)
-            )
-
-        Hide ->
-            ( { model | show = False, beginHide = False }
-            , Cmd.none
-            )
-
         NoOp ->
             ( model, Cmd.none )
 
@@ -98,23 +65,5 @@ view : Model -> Html Msg
 view model =
     div [ class "container" ]
         [ h1 [] [ text "Animated Alert" ]
-        , button
-            [ class "btn btn-primary"
-            , onClick BeginShow
-            ]
-            [ text "Show Alert" ]
-        , h1 [] [ text "Model" ]
-        , p [] [ text (toString model) ]
-        , if model.show then
-            div
-                [ classList
-                    [ ( "alert", True )
-                    , ( "alert-danger", True )
-                    , ( "in", model.beginShow )
-                    , ( "out", model.beginHide )
-                    ]
-                ]
-                [ text "Oh no! Dinosaurs!" ]
-          else
-            span [] []
+          -- TODO: Add more stuff here!
         ]
